@@ -4,8 +4,5 @@
 
 void main()
 {
-//	varying vec4 gl_Color; // readable on the fragment shader
-//  gl_Color in fragment shader is automatically computed from
-//  gl_FrontColor & gl_BackColor from vertex shader
-    gl_FragColor = gl_Color;
+    gl_FragColor = vec4(0.4,0.4,0.8,1.0);
 }

@@ -19,9 +19,8 @@
 #include "textfile.h"
 
 
-
+GLint loc;
 GLuint v,f,f2,p;
-float lpos[4] = {1,0.5,1,0};
 
 void changeSize(int w, int h) {
 
@@ -46,61 +45,6 @@ void changeSize(int w, int h) {
 
 }
 
-void drawCube() {
-    
-	float hd = 1.0;
-    
-	glColor3f(1,0,0);
-	glBegin(GL_QUADS);
-    glVertex3f(-hd,-hd,-hd);
-    glVertex3f(-hd,hd,-hd);
-    glVertex3f(hd,hd,-hd);
-    glVertex3f(hd,-hd,-hd);
-	glEnd();
-    
-	glColor3f(1,1,0);
-	glBegin(GL_QUADS);
-    glVertex3f(-hd,-hd,-hd);
-    glVertex3f(hd,-hd,-hd);
-    glVertex3f(hd,-hd,hd);
-    glVertex3f(-hd,-hd,hd);
-	glEnd();
-    
-	glColor3f(1,0,1);
-	glBegin(GL_QUADS);
-    glVertex3f(-hd,-hd,-hd);
-    glVertex3f(-hd,-hd,hd);
-    glVertex3f(-hd,hd,hd);
-    glVertex3f(-hd,hd,-hd);
-	glEnd();
-    
-	glColor3f(0,1,0);
-	glBegin(GL_QUADS);
-    glVertex3f(-hd,-hd,hd);
-    glVertex3f(hd,-hd,hd);
-    glVertex3f(hd,hd,hd);
-    glVertex3f(-hd,hd,hd);
-	glEnd();
-    
-	glColor3f(0,0,1);
-	glBegin(GL_QUADS);
-    glVertex3f(-hd,hd,-hd);
-    glVertex3f(-hd,hd,hd);
-    glVertex3f(hd,hd,hd);
-    glVertex3f(hd,hd,-hd);
-	glEnd();
-    
-	glColor3f(0,1,1);
-	glBegin(GL_QUADS);
-    glVertex3f(hd,-hd,-hd);
-    glVertex3f(hd,hd,-hd);
-    glVertex3f(hd,hd,hd);
-    glVertex3f(hd,-hd,hd);
-	glEnd();
-    
-    
-}
-
 float a = 0;
 
 void renderScene(void) {
@@ -108,15 +52,15 @@ void renderScene(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glLoadIdentity();
-	gluLookAt(0.0,0.0,5.0, 
-		      0.0,0.0,-1.0,
+	gluLookAt(0.0,0.0,5.0,
+		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
-
-	glLightfv(GL_LIGHT0, GL_POSITION, lpos);
-	glRotatef(a,0,1,1);
-//	glutSolidTeapot(1);
-    drawCube();
-	a+=0.1;
+    
+    // Here we show how we assign value to uniform attribute: binding "loc" to float value a.
+    glUniform1f(loc, a);
+    glRotatef(a/25, 0, 1, 0);
+	glutSolidTeapot(1);
+	a+=5;
 
 	glutSwapBuffers();
 }
@@ -218,6 +162,13 @@ void setShaders() {
 	printProgramInfoLog(p);
 
 	glUseProgram(p);
+    
+    // Setup: Getting the location of uniform variable. p is the program. "time"
+    //        is the uniform variable in our vertex shader.
+    // See renderScene() regarding how to bind the value "time" with some value in our OpenGL program.
+    //
+    // You can bind attribute before you start rendering too
+    loc = glGetUniformLocation(p,"time");
 
 }
 
