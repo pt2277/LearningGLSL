@@ -6,3 +6,10 @@
 #
 # Pods/
 
+/build/
+/*/build/
+/*/*/build/
+
+/buildXcode/
+/*/buildXcode/
+/*/*/buildXcode/
