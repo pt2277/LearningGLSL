@@ -45,6 +45,62 @@ void changeSize(int w, int h) {
 
 
 }
+
+void drawCube() {
+    
+	float hd = 1.0;
+    
+	glColor3f(1,0,0);
+	glBegin(GL_QUADS);
+    glVertex3f(-hd,-hd,-hd);
+    glVertex3f(-hd,hd,-hd);
+    glVertex3f(hd,hd,-hd);
+    glVertex3f(hd,-hd,-hd);
+	glEnd();
+    
+	glColor3f(1,1,0);
+	glBegin(GL_QUADS);
+    glVertex3f(-hd,-hd,-hd);
+    glVertex3f(hd,-hd,-hd);
+    glVertex3f(hd,-hd,hd);
+    glVertex3f(-hd,-hd,hd);
+	glEnd();
+    
+	glColor3f(1,0,1);
+	glBegin(GL_QUADS);
+    glVertex3f(-hd,-hd,-hd);
+    glVertex3f(-hd,-hd,hd);
+    glVertex3f(-hd,hd,hd);
+    glVertex3f(-hd,hd,-hd);
+	glEnd();
+    
+	glColor3f(0,1,0);
+	glBegin(GL_QUADS);
+    glVertex3f(-hd,-hd,hd);
+    glVertex3f(hd,-hd,hd);
+    glVertex3f(hd,hd,hd);
+    glVertex3f(-hd,hd,hd);
+	glEnd();
+    
+	glColor3f(0,0,1);
+	glBegin(GL_QUADS);
+    glVertex3f(-hd,hd,-hd);
+    glVertex3f(-hd,hd,hd);
+    glVertex3f(hd,hd,hd);
+    glVertex3f(hd,hd,-hd);
+	glEnd();
+    
+	glColor3f(0,1,1);
+	glBegin(GL_QUADS);
+    glVertex3f(hd,-hd,-hd);
+    glVertex3f(hd,hd,-hd);
+    glVertex3f(hd,hd,hd);
+    glVertex3f(hd,-hd,hd);
+	glEnd();
+    
+    
+}
+
 float a = 0;
 
 void renderScene(void) {
@@ -58,7 +114,8 @@ void renderScene(void) {
 
 	glLightfv(GL_LIGHT0, GL_POSITION, lpos);
 	glRotatef(a,0,1,1);
-	glutSolidTeapot(1);
+//	glutSolidTeapot(1);
+    drawCube();
 	a+=0.1;
 
 	glutSwapBuffers();
@@ -135,8 +192,8 @@ void setShaders() {
 	f = glCreateShader(GL_FRAGMENT_SHADER);
 	f2 = glCreateShader(GL_FRAGMENT_SHADER);
 
-	vs = textFileRead("../src/minimal.vert");
-	fs = textFileRead("../src/minimal.frag");
+	vs = textFileRead("../src/shader.vert");
+	fs = textFileRead("../src/shader.frag");
 
 	const char * vv = vs;
 	const char * ff = fs;
