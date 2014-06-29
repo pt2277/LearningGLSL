@@ -1,11 +1,15 @@
 // www.lighthouse3d.com
 
-uniform float time;
+uniform vec3 lightDir;
+
+varying float intensity;
 
 void main()
 {
-    vec4 v = vec4(gl_Vertex);
-    v.y = sin(5.0*v.x + time*0.01)*0.25;
-    
-    gl_Position = gl_ModelViewProjectionMatrix * v;
+	vec3 ld;
+	
+	intensity = dot(lightDir, gl_Normal);
+	
+	// Remember: ftransform() = gl_ModelViewProjectionMatrix * gl_Vertex;
+	gl_Position = ftransform();
 }

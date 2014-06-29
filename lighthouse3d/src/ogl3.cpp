@@ -22,6 +22,9 @@
 GLint loc;
 GLuint v,f,f2,p;
 
+// Light position
+float lpos[4] = {1.0,0.0,1.0,0.0};
+
 void changeSize(int w, int h) {
 
 	// Prevent a divide by zero, when window is too short
@@ -56,11 +59,10 @@ void renderScene(void) {
 		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
     
-    // Here we show how we assign value to uniform attribute: binding "loc" to float value a.
-    glUniform1f(loc, a);
-    glRotatef(a/25, 0, 1, 0);
+    glUniform3fv(loc, 1, lpos);
+    glRotatef(a, 0, 1, 0);
 	glutSolidTeapot(1);
-	a+=5;
+	a+=0.5;
 
 	glutSwapBuffers();
 }
@@ -168,7 +170,7 @@ void setShaders() {
     // See renderScene() regarding how to bind the value "time" with some value in our OpenGL program.
     //
     // You can bind attribute before you start rendering too
-    loc = glGetUniformLocation(p,"time");
+    loc = glGetUniformLocation(p,"lightDir");
 
 }
 
@@ -189,7 +191,7 @@ int main(int argc, char **argv) {
 
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(1.0,1.0,1.0,1.0);
-	glEnable(GL_CULL_FACE);
+//	glEnable(GL_CULL_FACE);
 
 	glewInit();
 	if (glewIsSupported("GL_VERSION_2_0"))
