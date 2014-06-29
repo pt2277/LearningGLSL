@@ -1,11 +1,17 @@
 // minimal fragment shader
 // www.lighthouse3d.com
 
-varying float intensity;
+// We will assume that lightDir is normalized.
+uniform vec3 lightDir;
+
+varying vec3 normal;
 
 void main()
 {
+	float intensity;
 	vec4 color;
+	
+	intensity = dot(normalize(lightDir), normalize(normal));
 	
 	if (intensity > 0.95)
 		color = vec4(1.0,0.5,0.5,1.0);

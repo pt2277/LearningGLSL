@@ -22,8 +22,7 @@
 GLint loc;
 GLuint v,f,f2,p;
 
-// Light position
-float lpos[4] = {1.0,0.0,1.0,0.0};
+float lpos[4] = {1.0,-0.5,1.0,0.0};
 
 void changeSize(int w, int h) {
 
@@ -191,6 +190,8 @@ int main(int argc, char **argv) {
 
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(1.0,1.0,1.0,1.0);
+	
+	// GL_CULL_FACE won't work with concave objects (like teapot)
 //	glEnable(GL_CULL_FACE);
 
 	glewInit();

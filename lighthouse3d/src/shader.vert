@@ -1,15 +1,13 @@
 // www.lighthouse3d.com
 
-uniform vec3 lightDir;
 
-varying float intensity;
+// Define varying normal here so fragment shader has access to
+// interpolated normals.
+varying vec3 normal;
 
 void main()
 {
-	vec3 ld;
+	normal = gl_Normal;
 	
-	intensity = dot(lightDir, gl_Normal);
-	
-	// Remember: ftransform() = gl_ModelViewProjectionMatrix * gl_Vertex;
 	gl_Position = ftransform();
 }
