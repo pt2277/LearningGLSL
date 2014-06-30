@@ -7,7 +7,9 @@ varying vec3 normal;
 
 void main()
 {
-	normal = gl_Normal;
+	// Convert normal to camera (eye) space since we will use
+	// OpenGL light in fragment shader, and that's given in eye space.
+	normal = gl_NormalMatrix * gl_Normal;
 	
 	gl_Position = ftransform();
 }

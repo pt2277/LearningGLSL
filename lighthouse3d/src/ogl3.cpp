@@ -18,11 +18,8 @@
 
 #include "textfile.h"
 
-
-GLint loc;
 GLuint v,f,f2,p;
-
-float lpos[4] = {1.0,-0.5,1.0,0.0};
+float lpos[4] = {1.0,0.0,1.0,0.0};
 
 void changeSize(int w, int h) {
 
@@ -58,7 +55,7 @@ void renderScene(void) {
 		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
     
-    glUniform3fv(loc, 1, lpos);
+	glLightfv(GL_LIGHT0, GL_POSITION, lpos);
     glRotatef(a, 0, 1, 0);
 	glutSolidTeapot(1);
 	a+=0.5;
@@ -163,13 +160,6 @@ void setShaders() {
 	printProgramInfoLog(p);
 
 	glUseProgram(p);
-    
-    // Setup: Getting the location of uniform variable. p is the program. "time"
-    //        is the uniform variable in our vertex shader.
-    // See renderScene() regarding how to bind the value "time" with some value in our OpenGL program.
-    //
-    // You can bind attribute before you start rendering too
-    loc = glGetUniformLocation(p,"lightDir");
 
 }
 
